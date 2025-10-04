@@ -7,11 +7,11 @@ Say goodbye FOMO (Fear Of Missing Out), ReachOut has your back!
 ## 🎯 Live Demo Features
 ### 🗺️ Current Implementation
 
-    Interactive Map (Leaflet.js) with real locations
+#### Interactive Map (Leaflet.js) with real locations
 
-    Pin System - Add markers anywhere on the map
+#### Pin System - Add markers anywhere on the map
 
-    Three Pin Types:
+#### Three Pin Types:
 
  ##### ![pin](./front/pin-warning.png) Occurrence - Something happening (accident, event, etc.)
 
