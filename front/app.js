@@ -113,9 +113,9 @@ const icons = {
 function addMarker(lat, lng, popupText = "New Marker", category = "", description = "") {
     let selectedIcon = null;
 
-    if (category == "Occurrence")  selectedIcon = icons.Occurrence;
-    else if (category == "Need Help") selectedIcon = icons.NeedHelp;
-    else if (category == "Give Help")  selectedIcon = icons.GiveHelp;
+    if (category === "occurrence")  selectedIcon = icons.Occurrence;
+    else if (category === "need help") selectedIcon = icons.NeedHelp;
+    else if (category === "give help")  selectedIcon = icons.GiveHelp;
     
     console.log("📍 Adding marker:", { lat, lng, category, selectedIcon });
     console.log("Category input value:", catInput.value);
@@ -193,6 +193,31 @@ submitBtn.addEventListener('click', () => {
         alert ("Please enter valid values for latitude and longitude!");
     }
 });
+
+function updatePinsList(filter = "all") {
+    pinsList.innerHTML = markers
+        .filter(m => filter === "all" || m.category === filter)
+        .map((m, index) => `
+            <li data-index="${index}">${m.popupText}</li>
+        `)
+        .join('');
+
+    document.querySelectorAll('#pins li').forEach(li => {
+        li.addEventListener('click', () => {
+            const i = li.getAttribute('data-index');
+            const m = markers[i];
+            map.flyTo([m.lat, m.lng], 18, { animate: false, duration: 0.5 });
+            m.marker.openPopup();
+        });
+    });
+}
+
+const pinFilter = document.getElementById('pin-filter');
+
+pinFilter.addEventListener('change', () => {
+    updatePinsList(pinFilter.value);
+});
+
 
 loadPins();
 
