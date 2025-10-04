@@ -39,39 +39,9 @@ async function loadUsers() {
             usersDiv.innerHTML = '<p>No users found. Try adding one first!</p>';
         }
     } catch (error) {
-        console.error('Error loading users:', error);
+        console.error('Error loading users:');
     }
 }
-
-// Add new user
-// document.getElementById('userForm').addEventListener('submit', async (e) => {
-//     e.preventDefault();
-    
-//     const name = document.getElementById('name').value;
-//     const email = document.getElementById('email').value;
-    
-//     try {
-//         await fetch('/api/users', {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({ name, email })
-//         });
-//         const result = await response.json();
-        
-//         if (result.success) {
-//             document.getElementById('name').value = '';
-//             document.getElementById('email').value = '';
-//             loadUsers(); // Reload the users list
-//         } else {
-//             alert('Error: ' + result.error);
-//         }
-//         // Clear form and reload users
-//         e.target.reset();
-//         loadUsers();
-//     } catch (error) {
-//         console.error('Error adding user:', error);
-//     }
-// });
 
 let currentUserName = ""; // global variable
 
@@ -116,28 +86,6 @@ const popup = document.getElementById('add-popup');
 const submitBtn = document.getElementById('submit-marker');
 const cancelBtn = document.getElementById('cancel-marker');
 
-function addMarker(lat, lng, popupText = "New Marker") {
-
-var PinIcon = L.Icon.extend({
-    options: {
-        //shadowUrl: 'leaf-shadow.png',
-        iconSize:     [38, 95],
-        //shadowSize:   [50, 64],
-        iconAnchor:   [22, 94],
-        //shadowAnchor: [4, 62],
-        popupAnchor:  [-3, -76]
-    }
-});
-
-var Occurrence = new PinIcon({iconUrl: 'pin-warning.png'}),
-    NeedHelp = new PinIcon({iconUrl: 'pin-SOS.png'}),
-    GiveHelp = new PinIcon({iconUrl: 'pin-help.png'});
-
-    L.marker([lat, lng]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
-    savePins();
-}
 
 const latInput = document.getElementById('lat')
 const longInput = document.getElementById('lng')
@@ -145,10 +93,36 @@ const textInput = document.getElementById('info')
 const catInput = document.getElementById('type')
 
 
+const PinIcon = L.Icon.extend({
+    options: {
+        //shadowUrl: 'leaf-shadow.png',
+        iconSize:     [32, 32],
+        //shadowSize:   [50, 64],
+        iconAnchor:   [16, 32],
+        //shadowAnchor: [4, 62],
+        popupAnchor:  [0, -32]
+    }
+});
+
+const icons = {
+    Occurrence: new PinIcon({iconUrl: 'pin-warning.png'}),
+    NeedHelp: new PinIcon({iconUrl: 'pin-SOS.png'}),
+    GiveHelp: new PinIcon({iconUrl: 'pin-help.png'})
+};
+
 function addMarker(lat, lng, popupText = "New Marker", category = "", description = "") {
-    const marker = L.marker([lat, lng]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
+    let selectedIcon = null;
+
+    if (category == "Occurrence")  selectedIcon = icons.Occurrence;
+    else if (category == "Need Help") selectedIcon = icons.NeedHelp;
+    else if (category == "Give Help")  selectedIcon = icons.GiveHelp;
+    
+    console.log("📍 Adding marker:", { lat, lng, category, selectedIcon });
+    console.log("Category input value:", catInput.value);
+
+    const marker = L.marker([lat, lng], selectedIcon ? { icon: selectedIcon } : {}).addTo(map)
+        .bindPopup(popupText)
+        .openPopup();
     markers.push({ marker, lat, lng, popupText, category, description });
     updatePinsList();
     savePins();
@@ -204,10 +178,12 @@ cancelBtn.addEventListener('click', () => {
 submitBtn.addEventListener('click', () => {
     const lat = parseFloat(latInput.value);
     const lng = parseFloat(longInput.value);
+    const category = catInput.value.trim().toLowerCase();
+    const description = textInput.value.trim();
 
     if (!isNaN(lat) && !isNaN(lng)) {
-        const popupText = `${catInput.value} at [${lat}, ${lng}]<br>${textInput.value}<br>Added by: ${currentUserName}`;
-        addMarker(lat, lng, popupText, catInput.value, textInput.value);
+        const popupText = `${category} at [${lat}, ${lng}]<br>${description}<br>Added by: ${currentUserName || "Unknown"}`;
+        addMarker(lat, lng, popupText, category, description);
         popup.style.display = 'none';
         latInput.value = '';
         longInput.value = '';
