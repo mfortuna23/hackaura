@@ -1,0 +1,16 @@
+{
+  "name": "hackathon-project",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "mariadb": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0"
+  }
+}
