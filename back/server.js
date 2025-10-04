@@ -1,31 +1,21 @@
 const express = require('express');
 const path = require('path');
-const { initializeDatabase, pool } = require('./database').default;
+const database = require('./database');  // ← Simpler import
 
 const app = express();
-// server.js - already cloud-ready!
-const PORT = process.env.PORT || 3000;
-
-// database.js - uses Railway's environment variables automatically
-const pool = mariadb.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
-});
+const PORT = 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static('public')); // Serve frontend files
+app.use(express.static(path.join(__dirname, '../front')));
 
 // Initialize database
-initializeDatabase();
+database.initializeDatabase();  // ← Use database.initializeDatabase()
 
 // API Routes
 app.get('/api/users', async (req, res) => {
     try {
-        const conn = await pool.getConnection();
+        const conn = await database.pool.getConnection();  // ← Use database.pool
         const users = await conn.query('SELECT * FROM users');
         conn.release();
         res.json(users);
@@ -37,7 +27,7 @@ app.get('/api/users', async (req, res) => {
 app.post('/api/users', async (req, res) => {
     try {
         const { name, email } = req.body;
-        const conn = await pool.getConnection();
+        const conn = await database.pool.getConnection();
         const result = await conn.query(
             'INSERT INTO users (name, email) VALUES (?, ?)',
             [name, email]
@@ -49,11 +39,10 @@ app.post('/api/users', async (req, res) => {
     }
 });
 
-// Add this route to serve your main page
+// Root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../front', 'index.html'));
 });
-
 
 // Start server
 app.listen(PORT, () => {
