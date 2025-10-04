@@ -24,7 +24,7 @@ body {
 
 #map {
     flex: 1;
-    height: 500px;
+    height: 600px;
     margin: 0;
 }
 
@@ -33,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    align-items: flex-start;
 }
 
 .user-card {
@@ -43,17 +44,14 @@ body {
 }
 
 #userForm {
-    margin: 1.5% 3%;
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem 2rem;
 }
 
 input, #add-user {
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 0.5rem;
 }
 
 .button {
@@ -84,6 +82,37 @@ input, #add-user {
 #add:hover {
     box-shadow: 0 0px 14px #0eaef3;
     transform: scale(1.1);
+}
+
+.popup-form {
+    display: none;
+    position: fixed;
+    width: 40%;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #7529bb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    z-index: 1001;
+}
+
+.popup-form h3 {
+    text-align: center;
+    color:  #7529bb;
+}
+
+.popup-form input {
+    display: block;
+    margin: 0.5rem 0 1rem 0;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.popup-form .button {
+    margin-right: 0.5rem;
 }
 
 footer {
