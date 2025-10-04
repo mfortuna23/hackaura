@@ -8,7 +8,7 @@ body {
 
 .title {
     text-align: center;
-    color: rgb(207, 235, 244);
+    color: rgb(255, 255, 255);
     font-size: 3rem;
     background-color: #7529bb;
     padding: 2%;
@@ -25,6 +25,7 @@ body {
 #map {
     flex: 1;
     height: 600px;
+    width: 60%;
     margin: 0;
 }
 
@@ -77,6 +78,7 @@ input, #add-user {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-left: auto;
     align-self: flex-end;
+    z-index: 1000;
 }
 
 #add:hover {
@@ -104,15 +106,21 @@ input, #add-user {
     color:  #7529bb;
 }
 
-.popup-form input {
+.popup-form input, textarea, select{
     display: block;
     margin: 0.5rem 0 1rem 0;
     padding: 0.5rem;
     width: 100%;
 }
 
+textarea {
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
 .popup-form .button {
     margin-right: 0.5rem;
+    padding: 0.5rem;
 }
 
 footer {
