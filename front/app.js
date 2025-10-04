@@ -52,3 +52,5 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var marker = L.marker([41.148, -8.6127]).addTo(map);
+
+marker.bindPopup("<b>Where it all started!</b><br>CARALHOOO").openPopup();
