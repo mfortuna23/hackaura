@@ -3,15 +3,15 @@
 
 ReachOut is your interactive community map where neighbors share what's happening around them - from emergencies to free pie! Pin occurrences, request help, or offer assistance directly on a live map of your neighborhood. 
 
-Say goodbye FOMO (Fear Of Missing Out), ReachOut has your back!
+Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
 ## 🎯 Live Demo Features
 ### 🗺️ Current Implementation
 
-#### Interactive Map (Leaflet.js) with real locations
+#### * Interactive Map (Leaflet.js) with real locations
 
-#### Pin System - Add markers anywhere on the map
+#### * Pin System - Add markers anywhere on the map
 
-#### Three Pin Types:
+#### * Three Pin Types:
 
  ##### ![pin](./front/pin-warning.png) Occurrence - Something happening (accident, event, etc.)
 
@@ -20,6 +20,8 @@ Say goodbye FOMO (Fear Of Missing Out), ReachOut has your back!
  ##### ![pin](./front/pin-help.png) Help to Offer - Share resources (free food, skills, items)
 
 ## 📍 How to Use Right Now
+
+	Enter the website https://hackaura.onrender.com/
 
     Click on the plus sign in the bottom right on the page
 
@@ -91,23 +93,7 @@ Say goodbye FOMO (Fear Of Missing Out), ReachOut has your back!
     "🔧 I'm a handyman, can fix basic repairs"
 
 
-
-## 💡 Why This Works
-
-People want to help each other - they just need an easy way to connect. ReachOut makes neighborhood assistance as simple as dropping a pin on a map.
-## 🎯 Unique Approach
-Unlike other apps, ReachOut:
-
-    Focuses on hyper-local neighborhood level
-
-    Mixes emergencies with everyday kindness
-
-    Uses familiar map interface everyone understands
-
-    Builds community rather than just solving problems
-
-
-* Built during a 24-hour hackathon ⚡ *
+ Built during a 24-hour hackathon ⚡
 
 🗺️ See what's happening in your community right now - visit our live map!
 
