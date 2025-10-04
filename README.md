@@ -7,11 +7,11 @@ Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
 ## 🎯 Live Demo Features
 ### 🗺️ Current Implementation
 
-#### * Interactive Map (Leaflet.js) with real locations
+* Interactive Map (Leaflet.js) with real locations
 
-#### * Pin System - Add markers anywhere on the map
+* Pin System - Add markers anywhere on the map
 
-#### * Three Pin Types:
+* Three Pin Types:
 
  ##### ![pin](./front/pin-warning.png) Occurrence - Something happening (accident, event, etc.)
 
@@ -21,76 +21,77 @@ Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
 
 ## 📍 How to Use Right Now
 
-	Enter the website https://hackaura.onrender.com/
+Enter the website https://hackaura.onrender.com/
 
-    Click on the plus sign in the bottom right on the page
+Click on the plus sign in the bottom right on the page
 
-    Select pin type: Occurrence, Need Help, or Help to Offer
+Select pin type: Occurrence, Need Help, or Help to Offer
 
-    Add description of what's happening
+Add description of what's happening
 
-    Enter coordinates
+Enter coordinates
 
-    See it appear on the community map
+See it appear on the community map
 
 ## 🚀 Vision & Future Features
 ### 👤 User Accounts & Notifications
 
-    Create profile and mark your neighborhood
+Create profile and mark your neighborhood
 
-    Get notified when sellected pins appear in your area
+Get notified when sellected pins appear in your area
 
-    Build reputation as a helpful community member
+Build reputation as a helpful community member
 
 ### 🏛️ Authority Integration
 
-    Verified official pins from city hall, police, fire department
+Verified official pins from city hall, police, fire department
 
-    Emergency response coordination
+Emergency response coordination
 
-    Fact-checking system for important occurrences
+Fact-checking system for important occurrences
 
-    Priority alert system for critical situations
+Priority alert system for critical situations
 
 ### 🤝 Community Support Network
 
-    Solidarity associations can post available resources
+Solidarity associations can post available resources
 
-    Local businesses offer promotions or help
+Local businesses offer promotions or help
 
-    Skill-sharing network - connect people who can help with those who need it
+Skill-sharing network - connect people who can help with those who need it
 
-    Resource tracking - food banks, shelters, community centers
+Resource tracking - food banks, shelters, community centers
 
 ### 🎉 Beyond Emergencies
 
-    City announcements - flea markets, road closures, events
+City announcements - flea markets, road closures, events
 
-    Community gatherings - block parties, fundraisers, meetings
+Community gatherings - block parties, fundraisers, meetings
 
-    Local initiatives - cleanup events, gardening projects
+Local initiatives - cleanup events, gardening projects
 
-    Spontaneous generosity - "I baked too much pie, come get some!"
+Spontaneous generosity - "I baked too much pie, come get some!"
 
 ## 🎯 Real Pins You'll See
 
 ### ![pin](./front/pin-warning.png) Occurrence Examples
 
-    "🏗️ Road construction blocking Oak Avenue"
+"🏗️ Road construction blocking Oak Avenue"
 
-    "🌳 Tree down blocking sidewalk"
+"🌳 Tree down blocking sidewalk"
 
 ### ![pin](./front/pin-SOS.png) Need Help Examples
 
-    "🚗 Car battery died - need jump start"
+"🚗 Car battery died - need jump start"
 
-    "🐱 Cat stuck in tree"
+"🐱 Cat stuck in tree"
 
 ### ![pin](./front/pin-help.png) Help to Offer Examples
 
-    "🍕 Free pizza - ordered too much!"
+"🍕 Free pizza - ordered too much!"
 
-    "🔧 I'm a handyman, can fix basic repairs"
+"🔧 I'm a handyman, can fix basic repairs"
+
 
 
  Built during a 24-hour hackathon ⚡
