@@ -13,11 +13,11 @@ Say goodbye FOMO (Fear Of Missing Out), ReachOut has your back!
 
     Three Pin Types:
 
-        ![pin](./front/pin-warning.png) Occurrence - Something happening (accident, event, etc.)
+ ##### ![pin](./front/pin-warning.png) Occurrence - Something happening (accident, event, etc.)
 
-        ![pin](./front/pin-SOS.png) Need Help - Request assistance (cat in tree, moving help, etc.)
+ ##### ![pin](./front/pin-SOS.png) Need Help - Request assistance (cat in tree, moving help, etc.)
 
-        ![pin](./front/pin-help.png) Help to Offer - Share resources (free food, skills, items)
+ ##### ![pin](./front/pin-help.png) Help to Offer - Share resources (free food, skills, items)
 
 ## 📍 How to Use Right Now
 
