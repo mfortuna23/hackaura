@@ -44,7 +44,7 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
 // Load users when page loads
 loadUsers();
 
-var map = L.map('map').setView([51.505, -0.09], 13);
+var map = L.map('map').setView([41.148, -8.6127], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
