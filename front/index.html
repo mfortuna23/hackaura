@@ -10,17 +10,22 @@
 </head>
 <body>
     <div id="app">
-        <h1>Hackathon 2025 🚀</h1>
-		<div id="map"></div>
-        <div id="users"></div>
+        <h1 class="title">Hackathon 2025 🚀</h1>
+        <div class="main-container">
+		    <div id="map"></div>
+            <div class="right-side">
+                <div id="users"></div>
         
-        <form id="userForm">
-            <input type="text" id="name" placeholder="Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <button type="submit">Add User</button>
-        </form>
+                <form id="userForm">
+                    <input type="text" id="name" placeholder="Name" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <button class= "button" id="add-user" type="submit">Add User</button>
+                    <button class="button" id="add">&#43;</button>
+                </form>
+            </div>
+        </div>
     </div>
-    
     <script src="app.js"></script>
 </body>
+<footer>✨Made with coffee by Merge Conflict Mafia Team for Hack Aura Hackathon✨</footer>
 </html>

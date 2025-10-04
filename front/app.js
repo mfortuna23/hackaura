@@ -1,4 +1,5 @@
 
+
 // Load users from API
 async function loadUsers() {
     try {
@@ -52,3 +53,4 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var marker = L.marker([41.14852, -8.61317]).addTo(map);
 
 marker.bindPopup("<b>Where it all started!</b><br>CARALHOOO").openPopup();
+
