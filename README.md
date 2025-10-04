@@ -4,6 +4,9 @@
 ReachOut is your interactive community map where neighbors share what's happening around them - from emergencies to free pie! Pin occurrences, request help, or offer assistance directly on a live map of your neighborhood. 
 
 Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
+
+
+
 ## 🎯 Live Demo Features
 ### 🗺️ Current Implementation
 
@@ -19,6 +22,8 @@ Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
 
  ##### ![pin](./front/pin-help.png) Help to Offer - Share resources (free food, skills, items)
 
+
+
 ## 📍 How to Use Right Now
 
 * Enter the website https://hackaura.onrender.com/
@@ -33,6 +38,8 @@ Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
 
 * See it appear on the community map
 
+
+
 ## 🚀 Vision & Future Features
 ### 👤 User Accounts & Notifications
 
@@ -46,7 +53,7 @@ Say goodbye to FOMO (Fear Of Missing Out), ReachOut has your back!
 
 * Verified official pins from city hall, police, fire department
 
-Emergency response coordination
+* Emergency response coordination
 
 * Fact-checking system for important occurrences
 
@@ -72,6 +79,9 @@ Emergency response coordination
 
 * Spontaneous generosity - "I baked too much pie, come get some!"
 
+
+
+
 ## 🎯 Real Pins You'll See
 
 ### ![pin](./front/pin-warning.png) Occurrence Examples
@@ -91,6 +101,8 @@ Emergency response coordination
 * "🍕 Free pizza - ordered too much!"
 
 * "🔧 I'm a handyman, can fix basic repairs"
+
+
 
 
 
