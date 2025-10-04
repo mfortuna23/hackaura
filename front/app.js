@@ -116,40 +116,43 @@ const popup = document.getElementById('add-popup');
 const submitBtn = document.getElementById('submit-marker');
 const cancelBtn = document.getElementById('cancel-marker');
 
-function addMarker(lat, lng, popupText = "New Marker") {
-
-var PinIcon = L.Icon.extend({
-    options: {
-        //shadowUrl: 'leaf-shadow.png',
-        iconSize:     [38, 95],
-        //shadowSize:   [50, 64],
-        iconAnchor:   [22, 94],
-        //shadowAnchor: [4, 62],
-        popupAnchor:  [-3, -76]
-    }
-});
-
-var Occurrence = new PinIcon({iconUrl: 'pin-warning.png'}),
-    NeedHelp = new PinIcon({iconUrl: 'pin-SOS.png'}),
-    GiveHelp = new PinIcon({iconUrl: 'pin-help.png'});
-
-    L.marker([lat, lng]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
-    savePins();
-}
 
 const latInput = document.getElementById('lat')
 const longInput = document.getElementById('lng')
 const textInput = document.getElementById('info')
 const catInput = document.getElementById('type')
 
+L.icon = function (options) {
+    return new L.Icon(options);
+};
 
 function addMarker(lat, lng, popupText = "New Marker", category = "", description = "") {
-    const marker = L.marker([lat, lng]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
-    markers.push({ marker, lat, lng, popupText, category, description });
+	var PinIcon = L.Icon.extend({
+		options: {
+			//shadowUrl: 'leaf-shadow.png',
+			iconSize:     [38, 95],
+			//shadowSize:   [50, 64],
+			iconAnchor:   [22, 94],
+			//shadowAnchor: [4, 62],
+			popupAnchor:  [-3, -76]
+		}
+	});
+	var Occurrence = new PinIcon({iconUrl: 'pin-warning.png'}),
+		NeedHelp = new PinIcon({iconUrl: 'pin-SOS.png'}),
+		GiveHelp = new PinIcon({iconUrl: 'pin-help.png'});
+
+	if (category == "Occurence")
+		L.marker([lat, lng]),{icon: Occurrence}.addTo(map).bindPopup(popupText).openPopup();
+	else if (category == "Need help")
+		L.marker([lat, lng]),{icon: NeedHelp}.addTo(map).bindPopup(popupText).openPopup();
+	else
+		L.marker([lat, lng]),{icon: NeedHelp}.addTo(map).bindPopup(popupText).openPopup();
+	
+	savePins();
+    // const marker = L.marker([lat, lng]).addTo(map)
+    // .bindPopup(popupText)
+    // .openPopup();
+    //markers.push({ marker, lat, lng, popupText, category, description });
     updatePinsList();
     savePins();
 }
