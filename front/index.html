@@ -15,7 +15,7 @@
         <form id="userForm">
             <input type="text" id="name" placeholder="Name" required>
             <input type="email" id="email" placeholder="Email" required>
-            <button class= "button" id="add-user" type="submit" title="Add new user">Add User</button>
+            <button class="button" id="add-user" type="submit" title="Add new user">Add User</button>
         </form>
 
         <div class="main-container">
@@ -26,10 +26,19 @@
             </div>
             <div id="add-popup" class="popup-form">
                 <h3>Add a new marker</h3>
+                <label for="info">Description</label>
+                <textarea id="info" cols="60" rows="7" placeholder="Give some more information"></textarea required>
+                <label for="type">Category:</label>
+                <select id="type" required>
+                    <option value="0">Choose One</option>
+                    <option value="1">Occurrence</option>
+                    <option value="2">Need Help</option>
+                    <option value="3">Give Help</option>
+                </select>
                 <label for="lat">Latitude:</label>
-                <input id="lat" type="number" step="0.0001" placeholder="e.g. 51.505">
+                <input id="lat" type="number" step="0.0001" placeholder="e.g. 51.505" required>
                 <label for="lng">Longitude:</label>
-                <input id="lng" type="number" step="0.0001" placeholder="e.g. 51.505">
+                <input id="lng" type="number" step="0.0001" placeholder="e.g. 51.505" required>
                 <button id="submit-marker" class="button">Add Marker</button>
                 <button id="cancel-marker" class="button">Cancel</button>
             </div>
