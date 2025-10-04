@@ -3,7 +3,17 @@ const path = require('path');
 const { initializeDatabase, pool } = require('./database').default;
 
 const app = express();
-const PORT = 3000;
+// server.js - already cloud-ready!
+const PORT = process.env.PORT || 3000;
+
+// database.js - uses Railway's environment variables automatically
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+});
 
 // Middleware
 app.use(express.json());
