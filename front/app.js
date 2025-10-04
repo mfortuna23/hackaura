@@ -7,7 +7,6 @@ async function loadUsers() {
 		console.log('Raw data from API:', data);
         
         const usersDiv = document.getElementById('users');
-        // If it's already an array, use it directly
         if (Array.isArray(data)) {
             usersDiv.innerHTML = data.map(user => `
                 <div style="border:1px solid #ccc; padding:10px; margin:5px;">
@@ -16,7 +15,6 @@ async function loadUsers() {
                 </div>
             `).join('');
         } 
-        // If it's an object with a users property
         else if (data.users && Array.isArray(data.users)) {
             usersDiv.innerHTML = data.users.map(user => `
                 <div style="border:1px solid #ccc; padding:10px; margin:5px;">
@@ -25,7 +23,6 @@ async function loadUsers() {
                 </div>
             `).join('');
         }
-        // If it's an object with a rows property
         else if (data.rows && Array.isArray(data.rows)) {
             usersDiv.innerHTML = data.rows.map(user => `
                 <div style="border:1px solid #ccc; padding:10px; margin:5px;">
@@ -34,7 +31,6 @@ async function loadUsers() {
                 </div>
             `).join('');
         }
-        // If nothing works
         else {
             usersDiv.innerHTML = '<p>No users found. Try adding one first!</p>';
         }
@@ -43,7 +39,7 @@ async function loadUsers() {
     }
 }
 
-let currentUserName = ""; // global variable
+let currentUserName = "";
 
 document.getElementById('userForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -51,7 +47,7 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     
-    currentUserName = name; // store the name for marker use
+    currentUserName = name;
     
     try {
         await fetch('/api/users', {
@@ -128,10 +124,15 @@ function addMarker(lat, lng, popupText = "New Marker", category = "", descriptio
     savePins();
 }
 
-function updatePinsList() {
-    pinsList.innerHTML = markers.map((m, index) => `
-        <li data-index="${index}">${m.popupText}</li>
-    `).join('');
+function updatePinsList(filter = "all") {
+    pinsList.innerHTML = markers
+        .map((m, originalIndex) => ({ m, originalIndex }))
+        .filter(({ m }) => filter === "all" || m.category === filter)
+        .map(({ m, originalIndex }) => `
+            <li data-index="${originalIndex}">${m.popupText}</li>
+        `)
+        .join('');
+
     document.querySelectorAll('#pins li').forEach(li => {
         li.addEventListener('click', () => {
             const i = li.getAttribute('data-index');
