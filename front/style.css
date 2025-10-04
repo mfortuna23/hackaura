@@ -16,9 +16,9 @@ body {
 
 .subtitle {
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     font-size: 2rem;
-    background-color: #7529bb;
+    background-color: #5c9eab;
     padding: 2%;
 }
 
