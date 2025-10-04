@@ -4,25 +4,84 @@ async function loadUsers() {
     try {
         const response = await fetch('/api/users');
         const users = await response.json();
+		console.log('Raw data from API:', data);
         
         const usersDiv = document.getElementById('users');
-        usersDiv.innerHTML = users.map(user => `
-            <div class="user-card">
-                <h3>${user.name}</h3>
-                <p>${user.email}</p>
-            </div>
-        `).join('');
+        // If it's already an array, use it directly
+        if (Array.isArray(data)) {
+            usersDiv.innerHTML = data.map(user => `
+                <div style="border:1px solid #ccc; padding:10px; margin:5px;">
+                    <h3>${user.name}</h3>
+                    <p>${user.email}</p>
+                </div>
+            `).join('');
+        } 
+        // If it's an object with a users property
+        else if (data.users && Array.isArray(data.users)) {
+            usersDiv.innerHTML = data.users.map(user => `
+                <div style="border:1px solid #ccc; padding:10px; margin:5px;">
+                    <h3>${user.name}</h3>
+                    <p>${user.email}</p>
+                </div>
+            `).join('');
+        }
+        // If it's an object with a rows property
+        else if (data.rows && Array.isArray(data.rows)) {
+            usersDiv.innerHTML = data.rows.map(user => `
+                <div style="border:1px solid #ccc; padding:10px; margin:5px;">
+                    <h3>${user.name}</h3>
+                    <p>${user.email}</p>
+                </div>
+            `).join('');
+        }
+        // If nothing works
+        else {
+            usersDiv.innerHTML = '<p>No users found. Try adding one first!</p>';
+        }
     } catch (error) {
         console.error('Error loading users:', error);
     }
 }
 
 // Add new user
+// document.getElementById('userForm').addEventListener('submit', async (e) => {
+//     e.preventDefault();
+    
+//     const name = document.getElementById('name').value;
+//     const email = document.getElementById('email').value;
+    
+//     try {
+//         await fetch('/api/users', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ name, email })
+//         });
+//         const result = await response.json();
+        
+//         if (result.success) {
+//             document.getElementById('name').value = '';
+//             document.getElementById('email').value = '';
+//             loadUsers(); // Reload the users list
+//         } else {
+//             alert('Error: ' + result.error);
+//         }
+//         // Clear form and reload users
+//         e.target.reset();
+//         loadUsers();
+//     } catch (error) {
+//         console.error('Error adding user:', error);
+//     }
+// });
+
+let currentUserName = ""; // global variable
+
 document.getElementById('userForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
+    
+    currentUserName = name; // store the name for marker use
     
     try {
         await fetch('/api/users', {
@@ -30,10 +89,10 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email })
         });
-        
-        // Clear form and reload users
+
         e.target.reset();
         loadUsers();
+        alert(`User "${name}" added!`);
     } catch (error) {
         console.error('Error adding user:', error);
     }
@@ -56,6 +115,30 @@ const addButton = document.getElementById('add');
 const popup = document.getElementById('add-popup');
 const submitBtn = document.getElementById('submit-marker');
 const cancelBtn = document.getElementById('cancel-marker');
+
+function addMarker(lat, lng, popupText = "New Marker") {
+
+var PinIcon = L.Icon.extend({
+    options: {
+        //shadowUrl: 'leaf-shadow.png',
+        iconSize:     [38, 95],
+        //shadowSize:   [50, 64],
+        iconAnchor:   [22, 94],
+        //shadowAnchor: [4, 62],
+        popupAnchor:  [-3, -76]
+    }
+});
+
+var Occurrence = new PinIcon({iconUrl: 'pin-warning.png'}),
+    NeedHelp = new PinIcon({iconUrl: 'pin-SOS.png'}),
+    GiveHelp = new PinIcon({iconUrl: 'pin-help.png'});
+
+    L.marker([lat, lng]).addTo(map)
+    .bindPopup(popupText)
+    .openPopup();
+    savePins();
+}
+
 const latInput = document.getElementById('lat')
 const longInput = document.getElementById('lng')
 const textInput = document.getElementById('info')
@@ -123,7 +206,7 @@ submitBtn.addEventListener('click', () => {
     const lng = parseFloat(longInput.value);
 
     if (!isNaN(lat) && !isNaN(lng)) {
-        const popupText = `${catInput.value} at [${lat}, ${lng}]<br>${textInput.value}<br>Added by: ${name}`;
+        const popupText = `${catInput.value} at [${lat}, ${lng}]<br>${textInput.value}<br>Added by: ${currentUserName}`;
         addMarker(lat, lng, popupText, catInput.value, textInput.value);
         popup.style.display = 'none';
         latInput.value = '';
@@ -138,5 +221,5 @@ submitBtn.addEventListener('click', () => {
 loadPins();
 
 // var marker = L.marker([41.14852, -8.61317]).addTo(map);
-
 // marker.bindPopup("<b>Where it all started!</b><br>CARALHOOO").openPopup();
+
