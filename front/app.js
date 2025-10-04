@@ -1,6 +1,4 @@
 
-
-
 // Load users from API
 async function loadUsers() {
     try {
