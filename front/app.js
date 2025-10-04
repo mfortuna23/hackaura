@@ -89,6 +89,22 @@ const submitBtn = document.getElementById('submit-marker');
 const cancelBtn = document.getElementById('cancel-marker');
 
 function addMarker(lat, lng, popupText = "New Marker") {
+
+var PinIcon = L.Icon.extend({
+    options: {
+        //shadowUrl: 'leaf-shadow.png',
+        iconSize:     [38, 95],
+        //shadowSize:   [50, 64],
+        iconAnchor:   [22, 94],
+        //shadowAnchor: [4, 62],
+        popupAnchor:  [-3, -76]
+    }
+});
+
+var Occurrence = new PinIcon({iconUrl: 'pin-warning.png'}),
+    NeedHelp = new PinIcon({iconUrl: 'pin-SOS.png'}),
+    GiveHelp = new PinIcon({iconUrl: 'pin-help.png'});
+
     L.marker([lat, lng]).addTo(map)
     .bindPopup(popupText)
     .openPopup();

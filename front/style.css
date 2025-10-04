@@ -14,6 +14,14 @@ body {
     padding: 2%;
 }
 
+.subtitle {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+    background-color: #7529bb;
+    padding: 2%;
+}
+
 .main-container {
     display: flex;
     flex-direction: row;
