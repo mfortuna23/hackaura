@@ -42,26 +42,69 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
 // Load users when page loads
 loadUsers();
 
-var map = L.map('map').setView([41.14852, -8.61317], 20);
+const map = L.map('map').setView([41.14852, -8.61317], 20);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+const pinsList = document.getElementById('pins');
+let markers = [];
+
 const addButton = document.getElementById('add');
 const popup = document.getElementById('add-popup');
 const submitBtn = document.getElementById('submit-marker');
 const cancelBtn = document.getElementById('cancel-marker');
-
-function addMarker(lat, lng, popupText = "New Marker") {
-    L.marker([lat, lng]).addTo(map)
-    .bindPopup(popupText)
-    .openPopup();
-}
-
 const latInput = document.getElementById('lat')
 const longInput = document.getElementById('lng')
+const textInput = document.getElementById('info')
+const catInput = document.getElementById('type')
+
+
+function addMarker(lat, lng, popupText = "New Marker", category = "", description = "") {
+    const marker = L.marker([lat, lng]).addTo(map)
+    .bindPopup(popupText)
+    .openPopup();
+    markers.push({ marker, lat, lng, popupText, category, description });
+    updatePinsList();
+    savePins();
+}
+
+function updatePinsList() {
+    pinsList.innerHTML = markers.map((m, index) => `
+        <li data-index="${index}">${m.popupText}</li>
+    `).join('');
+    document.querySelectorAll('#pins li').forEach(li => {
+        li.addEventListener('click', () => {
+            const i = li.getAttribute('data-index');
+            const m = markers[i];
+            map.flyTo([m.lat, m.lng], 18, { animate: false, duration: 0.5 });
+            m.marker.openPopup();
+        });
+    });
+}
+
+function savePins() {
+    const data = markers.map(m => ({
+        lat: m.lat,
+        lng: m.lng,
+        popupText: m.popupText,
+        category: m.category,
+        description: m.description
+    }));
+    localStorage.setItem('pins', JSON.stringify(data));
+}
+
+function loadPins() {
+    const saved = localStorage.getItem('pins');
+    if (!saved) return;
+
+    const data = JSON.parse(saved);
+    data.forEach(p => {
+        addMarker(p.lat, p.lng, p.popupText, p.category, p.description);
+    });
+}
 
 addButton.addEventListener('click', () => {
     popup.style.display = 'block';
@@ -71,6 +114,8 @@ cancelBtn.addEventListener('click', () => {
     popup.style.display = 'none';
     latInput.value = '';
     longInput.value = '';
+    textInput.value = '';
+    catInput.value = '';
 });
 
 submitBtn.addEventListener('click', () => {
@@ -78,15 +123,19 @@ submitBtn.addEventListener('click', () => {
     const lng = parseFloat(longInput.value);
 
     if (!isNaN(lat) && !isNaN(lng)) {
-
-        addMarker(lat, lng, `Marker at [${lat}, ${lng}]`);
+        const popupText = `${catInput.value} at [${lat}, ${lng}]<br>${textInput.value}<br>Added by: ${name}`;
+        addMarker(lat, lng, popupText, catInput.value, textInput.value);
         popup.style.display = 'none';
         latInput.value = '';
         longInput.value = '';
+        textInput.value = '';
+        catInput.value = '';
     } else {
         alert ("Please enter valid values for latitude and longitude!");
     }
 });
+
+loadPins();
 
 // var marker = L.marker([41.14852, -8.61317]).addTo(map);
 

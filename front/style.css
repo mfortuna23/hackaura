@@ -23,7 +23,7 @@ body {
 }
 
 #map {
-    flex: 1;
+    flex: 2;
     height: 600px;
     width: 60%;
     margin: 0;
@@ -35,6 +35,24 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     align-items: flex-start;
+}
+
+#pins-list {
+    flex: 1;
+    max-height: 500px;
+    overflow-y: auto;
+    border-left: 2px solid #7529bb;
+    padding-left: 1rem;
+}
+
+#pins li {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+#pins li:hover {
+    background-color: #f0f0f0;
 }
 
 .user-card {
