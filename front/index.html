@@ -11,17 +11,27 @@
 <body>
     <div id="app">
         <h1 class="title">Hackathon 2025 🚀</h1>
+
+        <form id="userForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <button class= "button" id="add-user" type="submit" title="Add new user">Add User</button>
+        </form>
+
         <div class="main-container">
 		    <div id="map"></div>
+            
             <div class="right-side">
-                <div id="users"></div>
-        
-                <form id="userForm">
-                    <input type="text" id="name" placeholder="Name" required>
-                    <input type="email" id="email" placeholder="Email" required>
-                    <button class= "button" id="add-user" type="submit">Add User</button>
-                    <button class="button" id="add">&#43;</button>
-                </form>
+                <button class="button" id="add" title="Add new pin">&#43;</button>
+            </div>
+            <div id="add-popup" class="popup-form">
+                <h3>Add a new marker</h3>
+                <label for="lat">Latitude:</label>
+                <input id="lat" type="number" step="0.0001" placeholder="e.g. 51.505">
+                <label for="lng">Longitude:</label>
+                <input id="lng" type="number" step="0.0001" placeholder="e.g. 51.505">
+                <button id="submit-marker" class="button">Add Marker</button>
+                <button id="cancel-marker" class="button">Cancel</button>
             </div>
         </div>
     </div>

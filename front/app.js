@@ -1,5 +1,4 @@
 
-
 // Load users from API
 async function loadUsers() {
     try {
@@ -50,6 +49,45 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-var marker = L.marker([41.14852, -8.61317]).addTo(map);
+const addButton = document.getElementById('add');
+const popup = document.getElementById('add-popup');
+const submitBtn = document.getElementById('submit-marker');
+const cancelBtn = document.getElementById('cancel-marker');
 
-marker.bindPopup("<b>Where it all started!</b><br>CARALHOOO").openPopup();
+function addMarker(lat, lng, popupText = "New Marker") {
+    L.marker([lat, lng]).addTo(map)
+    .bindPopup(popupText)
+    .openPopup();
+}
+
+const latInput = document.getElementById('lat')
+const longInput = document.getElementById('lng')
+
+addButton.addEventListener('click', () => {
+    popup.style.display = 'block';
+});
+
+cancelBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+    latInput.value = '';
+    longInput.value = '';
+});
+
+submitBtn.addEventListener('click', () => {
+    const lat = parseFloat(latInput.value);
+    const lng = parseFloat(longInput.value);
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+
+        addMarker(lat, lng, `Marker at [${lat}, ${lng}]`);
+        popup.style.display = 'none';
+        latInput.value = '';
+        longInput.value = '';
+    } else {
+        alert ("Please enter valid values for latitude and longitude!");
+    }
+});
+
+// var marker = L.marker([41.14852, -8.61317]).addTo(map);
+
+// marker.bindPopup("<b>Where it all started!</b><br>CARALHOOO").openPopup();
