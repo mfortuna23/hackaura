@@ -64,15 +64,38 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
     }
 });
 
-// Load users when page loads
 loadUsers();
 
-const map = L.map('map').setView([41.14852, -8.61317], 20);
+const defaultLat = 50.5;
+const defaultLng = 10.0;
+const defaultZoom = 4;
+
+const map = L.map('map').setView([defaultLat, defaultLng], defaultZoom);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            map.setView([lat, lng], 18);
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup("You are here")
+                .openPopup();
+        },
+        (error) => {
+            console.warn("Geolocation failed, using default location.", error);
+        }
+    );
+} else {
+    console.warn("Geolocation not supported, using default location.");
+}
 
 const pinsList = document.getElementById('pins');
 let markers = [];
