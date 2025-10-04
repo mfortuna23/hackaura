@@ -1,8 +1,38 @@
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    font-family: sans-serif, monospace;
+    font-size: 16px;
+    margin: 0;
+    box-sizing: border-box;
+    min-width: 600px;
+}
+
+.title {
+    text-align: center;
+    color: rgb(207, 235, 244);
+    font-size: 3rem;
+    background-color: #7529bb;
+    padding: 2%;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+#map {
+    flex: 1;
+    height: 500px;
+    margin: 0;
+}
+
+.right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .user-card {
@@ -12,21 +42,53 @@ body {
     border-radius: 5px;
 }
 
-form {
-    margin: 20px 0;
+#userForm {
+    margin: 1.5% 3%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-input, button {
+input, #add-user {
     padding: 10px;
     margin: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-button {
-    background: #007bff;
+.button {
+    background: #7529bb;
     color: white;
     cursor: pointer;
+    border: 1px solid #ddd;
 }
 
-#map { height: 360px; }
+#add {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 2rem;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0px 10px #9739f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-left: auto;
+    align-self: flex-end;
+}
+
+#add:hover {
+    box-shadow: 0 0px 14px #0eaef3;
+    transform: scale(1.1);
+}
+
+footer {
+    text-align: center;
+    padding-top: 5%;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
