@@ -1,5 +1,5 @@
 body {
-    font-family: sans-serif, monospace;
+    font-family: 'Segoe UI', Arial, sans-serif;
     font-size: 16px;
     margin: 0;
     box-sizing: border-box;
@@ -8,23 +8,20 @@ body {
 
 .title {
     text-align: center;
-    color: rgb(255, 255, 255);
-    font-size: 3rem;
-    background-color: #7529bb;
-    padding: 2%;
+    margin-top: 2rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #7529bb;
 }
 
 .subtitle {
     text-align: center;
-    color: #222;
-    background: linear-gradient(90deg, #8ac8e3 38%, #b5eefd 100%);
-    padding: 1.2rem 0 1rem 0;
-    margin: 0 0.5rem 1.6rem 0.5rem;
-    font-size: 1.28rem;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(138,200,227,0.15);
-    letter-spacing: 0.02em;
+    background: linear-gradient(90deg, #8ac8e3 65%, #cceafb 100%);
+    padding: 1.2rem 0;
+    border-radius: 12px;
+    margin: 1rem auto 2rem auto;
+    box-shadow: 0 2px 8px rgba(100,180,224,0.18);
+    font-size: 1.18rem;
     font-weight: 500;
 }
 
@@ -109,6 +106,34 @@ body {
     color: #232323;
 }
 
+/* Filter dropdown container */
+#pins-container select#pin-filter {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    color: #333;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover effect */
+#pins-container select#pin-filter:hover {
+    border-color: #7529bb;
+    box-shadow: 0 0 5px rgba(117,41,187,0.3);
+}
+
+/* Focus effect */
+#pins-container select#pin-filter:focus {
+    outline: none;
+    border-color: #7529bb;
+    box-shadow: 0 0 5px rgba(117,41,187,0.5);
+}
 
 .user-card {
     border: 1px solid #ddd;
@@ -119,9 +144,9 @@ body {
 
 #userForm {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 1rem 2rem;
+    gap: 1.1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
 input, #add-user {
@@ -130,9 +155,14 @@ input, #add-user {
 
 .button {
     background: #7529bb;
-    color: white;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(117,41,187,0.10);
     cursor: pointer;
-    border: 1px solid #ddd;
+    font-weight: 600;
+    transition: background 0.16s;
 }
 
 #add {
@@ -181,14 +211,21 @@ input, #add-user {
 
 .popup-form input, textarea, select{
     display: block;
-    margin: 0.5rem 0 1rem 0;
-    padding: 0.5rem;
+    margin: 0.5rem 0 1rem 0.7rem;
     width: 100%;
+    border: 1px solid #c7cdf2;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
 }
 
 textarea {
-    max-width: fit-content;
-    max-height: fit-content;
+    width: 605px;
+    height: 150px;
+    resize: none;
+    padding: 0.5rem;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
 }
 
 .popup-form .button {

@@ -7,7 +7,6 @@ async function loadUsers() {
 		console.log('Raw data from API:', data);
         
         const usersDiv = document.getElementById('users');
-        // If it's already an array, use it directly
         if (Array.isArray(data)) {
             usersDiv.innerHTML = data.map(user => `
                 <div style="border:1px solid #ccc; padding:10px; margin:5px;">
@@ -16,7 +15,6 @@ async function loadUsers() {
                 </div>
             `).join('');
         } 
-        // If it's an object with a users property
         else if (data.users && Array.isArray(data.users)) {
             usersDiv.innerHTML = data.users.map(user => `
                 <div style="border:1px solid #ccc; padding:10px; margin:5px;">
@@ -25,7 +23,6 @@ async function loadUsers() {
                 </div>
             `).join('');
         }
-        // If it's an object with a rows property
         else if (data.rows && Array.isArray(data.rows)) {
             usersDiv.innerHTML = data.rows.map(user => `
                 <div style="border:1px solid #ccc; padding:10px; margin:5px;">
@@ -34,7 +31,6 @@ async function loadUsers() {
                 </div>
             `).join('');
         }
-        // If nothing works
         else {
             usersDiv.innerHTML = '<p>No users found. Try adding one first!</p>';
         }
@@ -43,7 +39,7 @@ async function loadUsers() {
     }
 }
 
-let currentUserName = ""; // global variable
+let currentUserName = "";
 
 document.getElementById('userForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -51,7 +47,7 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     
-    currentUserName = name; // store the name for marker use
+    currentUserName = name;
     
     try {
         await fetch('/api/users', {
@@ -68,15 +64,38 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
     }
 });
 
-// Load users when page loads
 loadUsers();
 
-const map = L.map('map').setView([41.14852, -8.61317], 20);
+const defaultLat = 50.5;
+const defaultLng = 10.0;
+const defaultZoom = 4;
+
+const map = L.map('map').setView([defaultLat, defaultLng], defaultZoom);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            map.setView([lat, lng], 18);
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup("You are here")
+                .openPopup();
+        },
+        (error) => {
+            console.warn("Geolocation failed, using default location.", error);
+        }
+    );
+} else {
+    console.warn("Geolocation not supported, using default location.");
+}
 
 const pinsList = document.getElementById('pins');
 let markers = [];
@@ -113,9 +132,9 @@ const icons = {
 function addMarker(lat, lng, popupText = "New Marker", category = "", description = "") {
     let selectedIcon = null;
 
-    if (category == "Occurrence")  selectedIcon = icons.Occurrence;
-    else if (category == "Need Help") selectedIcon = icons.NeedHelp;
-    else if (category == "Give Help")  selectedIcon = icons.GiveHelp;
+    if (category === "occurrence")  selectedIcon = icons.Occurrence;
+    else if (category === "need help") selectedIcon = icons.NeedHelp;
+    else if (category === "give help")  selectedIcon = icons.GiveHelp;
     
     console.log("📍 Adding marker:", { lat, lng, category, selectedIcon });
     console.log("Category input value:", catInput.value);
@@ -128,10 +147,15 @@ function addMarker(lat, lng, popupText = "New Marker", category = "", descriptio
     savePins();
 }
 
-function updatePinsList() {
-    pinsList.innerHTML = markers.map((m, index) => `
-        <li data-index="${index}">${m.popupText}</li>
-    `).join('');
+function updatePinsList(filter = "all") {
+    pinsList.innerHTML = markers
+        .map((m, originalIndex) => ({ m, originalIndex }))
+        .filter(({ m }) => filter === "all" || m.category === filter)
+        .map(({ m, originalIndex }) => `
+            <li data-index="${originalIndex}">${m.popupText}</li>
+        `)
+        .join('');
+
     document.querySelectorAll('#pins li').forEach(li => {
         li.addEventListener('click', () => {
             const i = li.getAttribute('data-index');
@@ -193,6 +217,31 @@ submitBtn.addEventListener('click', () => {
         alert ("Please enter valid values for latitude and longitude!");
     }
 });
+
+function updatePinsList(filter = "all") {
+    pinsList.innerHTML = markers
+        .filter(m => filter === "all" || m.category === filter)
+        .map((m, index) => `
+            <li data-index="${index}">${m.popupText}</li>
+        `)
+        .join('');
+
+    document.querySelectorAll('#pins li').forEach(li => {
+        li.addEventListener('click', () => {
+            const i = li.getAttribute('data-index');
+            const m = markers[i];
+            map.flyTo([m.lat, m.lng], 18, { animate: false, duration: 0.5 });
+            m.marker.openPopup();
+        });
+    });
+}
+
+const pinFilter = document.getElementById('pin-filter');
+
+pinFilter.addEventListener('change', () => {
+    updatePinsList(pinFilter.value);
+});
+
 
 loadPins();
 
